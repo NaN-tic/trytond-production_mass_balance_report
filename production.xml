@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- production.mass_balance.report -->
+        <record model="ir.action.report" id="report_production_mass_balance">
+            <field name="name">Mass Balance</field>
+            <field name="report_name">production.mass_balance.report</field>
+            <field name="report">production_mass_balance_report/report/production_mass_balance_report.html</field>
+            <field name="extension">html</field>
+            <field name="template_extension">jinja</field>
+        </record>
+
+        <record model="ir.ui.view" id="print_production_mass_balance_start_view_form">
+            <field name="model">production.mass_balance.start</field>
+            <field name="type">form</field>
+            <field name="name">production_mass_balance_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="print_production_mass_balance">
+            <field name="name">Mass Balance</field>
+            <field name="wiz_name">production.print_mass_balance</field>
+        </record>
+
+        <record model="ir.action.keyword" id="print_production_mass_balance_template_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">product.template,-1</field>
+            <field name="action" ref="print_production_mass_balance"/>
+        </record>
+
+        <record model="ir.action.keyword" id="print_production_mass_balance_product_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">product.product,-1</field>
+            <field name="action" ref="print_production_mass_balance"/>
+        </record>
+
+        <menuitem parent="production.menu_production" action="print_production_mass_balance" id="menu_production_mass_balance"/>
+    </data>
+
+    <data depends="stock_lot">
+        <record model="ir.ui.view" id="print_production_mass_balance_lot_view_form">
+            <field name="model">production.mass_balance.start</field>
+            <field name="inherit" ref="production_mass_balance_report.print_production_mass_balance_start_view_form"/>
+            <field name="name">production_mass_balance_lot_form</field>
+        </record>
+
+        <record model="ir.action.keyword" id="print_production_mass_balance_lot_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">stock.lot,-1</field>
+            <field name="action" ref="print_production_mass_balance"/>
+        </record>
+    </data>
+</tryton>

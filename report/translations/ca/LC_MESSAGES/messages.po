@@ -1,0 +1,82 @@
+# Catalan translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-02-12 15:47+0100\n"
+"PO-Revision-Date: 2020-02-12 15:49+0100\n"
+"Last-Translator: \n"
+"Language: ca\n"
+"Language-Team: ca <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: _helpers.html:5 _helpers.html:31
+msgid "Production"
+msgstr "Producció"
+
+#: _helpers.html:6 _helpers.html:32 production_mass_balance_report.html:46
+msgid "Quantity"
+msgstr "Quantitat"
+
+#: _helpers.html:7 _helpers.html:33 production_mass_balance_report.html:47
+msgid "Consumption"
+msgstr "Consum"
+
+#: _helpers.html:8 _helpers.html:34 production_mass_balance_report.html:48
+msgid "Plan Consumption"
+msgstr "Quantitat teòrica"
+
+#: _helpers.html:9 _helpers.html:35 production_mass_balance_report.html:49
+msgid "Difference"
+msgstr "Diferencia"
+
+#: _helpers.html:10 _helpers.html:36 production_mass_balance_report.html:50
+msgid "% DIFF"
+msgstr "% dif"
+
+#: production_mass_balance_report.html:10
+#: production_mass_balance_report.html:16
+msgid "Mass Balance"
+msgstr "Balanç de masses"
+
+#: production_mass_balance_report.html:19
+msgid "Expand All"
+msgstr "Amplia tot"
+
+#: production_mass_balance_report.html:25
+msgid "Efficiency Product Type"
+msgstr "Consulta de producte tipus"
+
+#: production_mass_balance_report.html:25
+msgid "Backward"
+msgstr "Cap enrera"
+
+#: production_mass_balance_report.html:25
+msgid "Forward"
+msgstr "Cap endavant"
+
+#: production_mass_balance_report.html:30
+#: production_mass_balance_report.html:45
+msgid "Product"
+msgstr "Producte"
+
+#: production_mass_balance_report.html:31
+msgid "Lot"
+msgstr "Lot"
+
+#: production_mass_balance_report.html:35
+msgid "From Date"
+msgstr "Des de la data"
+
+#: production_mass_balance_report.html:36
+msgid "To Date"
+msgstr "Fins a la data"

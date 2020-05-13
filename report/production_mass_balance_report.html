@@ -1,0 +1,91 @@
+{% from "production_mass_balance_report/report/_helpers.html" import draw_table %}
+{% set base_url=data['parameters']['base_url'] %}{% set record=records[0] %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>{{ _('Mass Balance') }}</title>
+  </head>
+  <body>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><h1>{{ _('Mass Balance') }}</h1></td>
+          <td align="right">
+            <a href="{{ base_url }}" alt="{{ data['parameters']['company'].rec_name }}">{{ data['parameters']['company'].rec_name }}</a>
+            <button type="button" class="btn tn-outline-light btn-sm" onclick="expand()">{{ _('Expand All') }}</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <strong>{{ _('Efficiency Product Type') }}:</strong> {% if data['parameters']['direction'] == 'backward' %}{{ _('Backward') }}{% else %}{{ _('Forward') }}{% endif %}
+          </td>
+        </tr>
+
+        <tr>
+          <td><strong>{{ _('Product') }}:</strong> {{ data['parameters']['requested_product'].rec_name }}</td>
+          <td>{% if data['parameters']['lot'] %}<strong>{{ _('Lot') }}:</strong> {{ data['parameters']['lot'].number }}{% endif %}</td>
+        </tr>
+
+        {% if data['parameters']['show_date'] %}<tr>
+          <td><strong>{{ _('From Date') }}:</strong> {{ data['parameters']['from_date']|dateformat }}</td>
+          <td><strong>{{ _('To Date') }}:</strong> {{ data['parameters']['to_date']|dateformat }}</td>
+        </tr>
+        {% endif %}
+
+        <tr>
+          <td colspan="2">
+            <table class="table" id="detail">
+              <thead>
+                <tr>
+                  <th scope="col" width="50%">{{ _('Product') }}</th>
+                  <th scope="col" width="10%">{{ _('Quantity') }}</th>
+                  <th scope="col" width="10%">{{ _('Consumption') }}</th>
+                  <th scope="col" width="10%">{{ _('Plan Consumption') }}</th>
+                  <th scope="col" width="10%">{{ _('Difference') }}</th>
+                  <th scope="col" width="10%">{{ _('% DIFF') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product, values in data['records'].items() %}
+                {% set key = 'product-'+product.id|string %}
+                <tr>
+                  <td width="50%">
+                      <a class="" data-toggle="collapse" href="#{{ key }}" role="button" aria-expanded="false" aria-controls="{{ key }}">
+                          <i class="fas fa-angle-double-right"></i> {{ product.rec_name }}
+                      </a>
+                  </td>
+                  <td width="10%">{{ values.balance_quantity|render_field(decimal_digits=4) }} {{ values.balance_quantity_uom.symbol }}</td>
+                  <td width="10%">{{ values.balance_consumption|render_field(decimal_digits=4) }} {{ values.balance_consumption_uom.symbol }}</td>
+                  <td width="10%">{{ values.balance_plan_consumption|render_field(decimal_digits=4) }} {{ values.balance_plan_consumption_uom.symbol }}</td>
+                  <td width="10%">{{ values.balance_difference|render_field(decimal_digits=4) }} {{ values.balance_difference_uom.symbol }}</td>
+                  <td width="10%">{% if values['balance_plan_consumption'] %}{{ (((values.balance_consumption - values.balance_plan_consumption) / values.balance_plan_consumption) * 100)|render_field(decimal_digits=2) }}{% else %} 0.0{% endif %}%</td>
+                </tr>
+                <tr>
+                  <td colspan="6">
+                    {{ draw_table(key, values['productions'], data['parameters']) }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+      function expand() {
+        $('.collapse').collapse('show');
+      }
+    </script>
+  </body>
+</html>
