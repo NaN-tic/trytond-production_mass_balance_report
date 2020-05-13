@@ -3,19 +3,18 @@
 import os
 from datetime import datetime
 from collections import OrderedDict
-from trytond.config import config
 from trytond.model import fields, ModelView
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval, If
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.transaction import Transaction
 from trytond.modules.html_report.html_report import HTMLReport
+from trytond.url import http_host
 
 
 __all__ = ['Production', 'PrintProductionMassBalanceStart',
     'PrintProductionMassBalance', 'PrintProductionMassBalanceSReport']
 
-BASE_URL = config.get('web', 'base_url')
 _ZERO = 0.0
 
 
@@ -257,18 +256,8 @@ class PrintProductionMassBalanceSReport(HTMLReport):
         parameters['show_date'] = bool(data.get('from_date'))
         parameters['requested_product'] = requested_product
         parameters['lot'] = Lot(data['lot']) if data.get('lot') else None
-
-        # TODO get url from trytond.url issue8767
-        if BASE_URL:
-            base_url = '%s/#%s' % (
-                BASE_URL, Transaction().database.name)
-        else:
-            base_url = '%s://%s/#%s' % (
-                t_context['_request']['scheme'],
-                t_context['_request']['http_host'],
-                Transaction().database.name
-                )
-        parameters['base_url'] = base_url
+        parameters['base_url'] = '%s/#%s' % (http_host(),
+            Transaction().database.name)
         parameters['company'] = Company(company_id)
 
         records = OrderedDict()
