@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This file is part stock_mass_balance_report module for Tryton.
+# This file is part production_mass_balance_report module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
@@ -40,8 +40,8 @@ version = info.get('version', '0.0.1')
 major_version, minor_version, _ = version.split('.', 2)
 major_version = int(major_version)
 minor_version = int(minor_version)
-name = 'nantic_stock_mass_balance_report'
-download_url = 'https://bitbucket.org/nantic/trytond-stock_mass_balance_report'
+name = 'nantic_production_mass_balance_report'
+download_url = "https://github.com/NaN-tic/trytond-production_mass_balance_report"
 
 requires = []
 for dep in info.get('depends', []):
@@ -62,16 +62,16 @@ setup(name=name,
     long_description=read('README'),
     author='NaN-tic',
     author_email='info@nan-tic.com',
-    url='https://bitbucket.org/nantic/',
+    url='https://github.com/NaN-tic/',
     download_url=download_url,
     keywords='',
-    package_dir={'trytond.modules.stock_mass_balance_report': '.'},
+    package_dir={'trytond.modules.production_mass_balance_report': '.'},
     packages=[
-        'trytond.modules.stock_mass_balance_report',
-        'trytond.modules.stock_mass_balance_report.tests',
+        'trytond.modules.production_mass_balance_report',
+        'trytond.modules.production_mass_balance_report.tests',
         ],
     package_data={
-        'trytond.modules.stock_mass_balance_report': (info.get('xml', [])
+        'trytond.modules.production_mass_balance_report': (info.get('xml', [])
             + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.odt',
                 'icons/*.svg', 'tests/*.rst']),
         },
@@ -101,7 +101,7 @@ setup(name=name,
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    stock_mass_balance_report = trytond.modules.stock_mass_balance_report
+    production_mass_balance_report = trytond.modules.production_mass_balance_report
     """,
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
