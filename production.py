@@ -13,7 +13,7 @@ from trytond.modules.html_report.html_report import HTMLReport
 
 
 __all__ = ['Production', 'PrintProductionMassBalanceStart',
-    'PrintProductionMassBalance', 'PrintProductionMassBalanceSReport']
+    'PrintProductionMassBalance', 'PrintProductionMassBalanceReport']
 
 BASE_URL = config.get('web', 'base_url')
 _ZERO = 0.0
@@ -217,7 +217,7 @@ class PrintProductionMassBalance(Wizard):
         return action, data
 
 
-class PrintProductionMassBalanceSReport(HTMLReport):
+class PrintProductionMassBalanceReport(HTMLReport):
     __name__ = 'production.mass_balance.report'
 
     @classmethod
@@ -321,7 +321,7 @@ class PrintProductionMassBalanceSReport(HTMLReport):
 
         with Transaction().set_context(**context):
             records, parameters = cls.prepare(data)
-            return super(PrintProductionMassBalanceSReport, cls).execute(ids, {
+            return super(PrintProductionMassBalanceReport, cls).execute(ids, {
                     'name': 'production.mass_balance.report',
                     'model': data['model'],
                     'records': records,
