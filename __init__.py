@@ -13,5 +13,5 @@ def register():
         production.PrintProductionMassBalance,
         module='production_mass_balance_report', type_='wizard')
     Pool.register(
-        production.PrintProductionMassBalanceSReport,
+        production.PrintProductionMassBalanceReport,
         module='production_mass_balance_report', type_='report')
