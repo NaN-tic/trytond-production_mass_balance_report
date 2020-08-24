@@ -206,7 +206,7 @@ class PrintProductionMassBalance(Wizard):
             'to_date': self.start.to_date,
             'product': self.start.product.id,
             'model': context.get('active_model'),
-            'ids': context.get('active_ids'),
+            'ids': context.get('active_ids') or [],
             }
         try:
             Lot = Pool().get('stock.lot')
