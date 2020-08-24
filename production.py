@@ -282,7 +282,7 @@ class PrintProductionMassBalanceReport(HTMLReport):
                     ('company', '=', company_id),
                     ]
             if data.get('lot'):
-                domain += [('inputs.lot', '=', data['lot'])]
+                domain += [('outputs.lot', '=', data['lot'])]
         else:
             domain = [
                     ('inputs.product', '=', requested_product),
