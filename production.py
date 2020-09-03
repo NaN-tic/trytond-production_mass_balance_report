@@ -68,7 +68,7 @@ class Production(metaclass=PoolMeta):
                             break
 
                     balance_difference = round(qty - balance_plan_consumption, digits)
-                    if balance_difference:
+                    if balance_difference and balance_consumption:
                         balance_difference_percent = ((balance_consumption - balance_plan_consumption) / balance_consumption) * 100
                 item['balance_quantity'] = balance_quantity
                 item['balance_consumption'] += balance_consumption
@@ -95,7 +95,7 @@ class Production(metaclass=PoolMeta):
                             break
 
                     balance_difference = round(quantity - balance_plan_consumption, digits)
-                    if balance_difference:
+                    if balance_difference and balance_consumption:
                         balance_difference_percent = ((balance_consumption - balance_plan_consumption) / balance_consumption) * 100
                 item['balance_quantity'] = balance_quantity
                 item['balance_consumption'] += balance_consumption
