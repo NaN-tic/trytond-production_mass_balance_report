@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-12 15:47+0100\n"
-"PO-Revision-Date: 2020-02-12 15:49+0100\n"
+"POT-Creation-Date: 2020-09-14 13:58+0200\n"
+"PO-Revision-Date: 2020-09-14 14:12+0200\n"
 "Last-Translator: \n"
 "Language: ca\n"
 "Language-Team: ca <LL@li.org>\n"
@@ -19,27 +19,30 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: _helpers.html:5 _helpers.html:31
+#: _helpers.html:5
 msgid "Production"
 msgstr "Producció"
 
-#: _helpers.html:6 _helpers.html:32 production_mass_balance_report.html:46
+#: _helpers.html:6 production_mass_balance_report.html:35
+#: production_mass_balance_report.html:52
 msgid "Quantity"
 msgstr "Quantitat"
 
-#: _helpers.html:7 _helpers.html:33 production_mass_balance_report.html:47
+#: _helpers.html:7 production_mass_balance_report.html:36
+#: production_mass_balance_report.html:53
 msgid "Consumption"
 msgstr "Consum"
 
-#: _helpers.html:8 _helpers.html:34 production_mass_balance_report.html:48
+#: _helpers.html:8 production_mass_balance_report.html:37
+#: production_mass_balance_report.html:54
 msgid "Plan Consumption"
 msgstr "Quantitat teòrica"
 
-#: _helpers.html:9 _helpers.html:35 production_mass_balance_report.html:49
+#: _helpers.html:9 production_mass_balance_report.html:55
 msgid "Difference"
 msgstr "Diferencia"
 
-#: _helpers.html:10 _helpers.html:36 production_mass_balance_report.html:50
+#: _helpers.html:10 production_mass_balance_report.html:56
 msgid "% DIFF"
 msgstr "% dif"
 
@@ -50,22 +53,22 @@ msgstr "Balanç de masses"
 
 #: production_mass_balance_report.html:19
 msgid "Expand All"
-msgstr "Amplia tot"
+msgstr "Desplegar-ho tot"
 
 #: production_mass_balance_report.html:25
 msgid "Efficiency Product Type"
-msgstr "Consulta de producte tipus"
+msgstr "Tipus de producte d'eficiencia"
 
 #: production_mass_balance_report.html:25
 msgid "Backward"
-msgstr "Cap enrera"
+msgstr "Enrere"
 
 #: production_mass_balance_report.html:25
 msgid "Forward"
-msgstr "Cap endavant"
+msgstr "Endevant"
 
 #: production_mass_balance_report.html:30
-#: production_mass_balance_report.html:45
+#: production_mass_balance_report.html:51
 msgid "Product"
 msgstr "Producte"
 
@@ -74,9 +77,48 @@ msgid "Lot"
 msgstr "Lot"
 
 #: production_mass_balance_report.html:35
-msgid "From Date"
-msgstr "Des de la data"
+msgid "quantity produced including all outgoing moves in production"
+msgstr "quantitat produïda inclosos tots els moviments sortints de producció"
 
 #: production_mass_balance_report.html:36
+msgid "amount of product consumed per production"
+msgstr "quantitat de producte consumida per producció"
+
+#: production_mass_balance_report.html:37
+msgid "calculated consumption out of production's quantity field (initial production quantity)"
+msgstr "consum calculat del camp quantitatiu de producció (quantitat inicial de producció)"
+
+#: production_mass_balance_report.html:41
+msgid "From Date"
+msgstr "Desde"
+
+#: production_mass_balance_report.html:42
 msgid "To Date"
-msgstr "Fins a la data"
+msgstr "Fins"
+
+#~ msgid "Mass Balance"
+#~ msgstr "Balanç de masses"
+
+#~ msgid "Expand All"
+#~ msgstr "Amplia tot"
+
+#~ msgid "Efficiency Product Type"
+#~ msgstr "Consulta de producte tipus"
+
+#~ msgid "Backward"
+#~ msgstr "Cap enrera"
+
+#~ msgid "Forward"
+#~ msgstr "Cap endavant"
+
+#~ msgid "Product"
+#~ msgstr "Producte"
+
+#~ msgid "Lot"
+#~ msgstr "Lot"
+
+#~ msgid "From Date"
+#~ msgstr "Des de la data"
+
+#~ msgid "To Date"
+#~ msgstr "Fins a la data"
