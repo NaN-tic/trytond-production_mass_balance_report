@@ -22,14 +22,16 @@ _ZERO = 0.0
 class Production(metaclass=PoolMeta):
     __name__ = 'production'
 
-    def mass_balance_report_data(self, requested_product, direction):
+    def mass_balance_report_data(self, requested_product, direction, lot=None):
         Uom = Pool().get('product.uom')
 
         digits = self.on_change_with_unit_digits()
-
         quantity = 0.0
         for move in getattr(self, 'outputs' if direction == 'backward' else 'inputs'):
            if move.product == requested_product:
+               # skip moves that same product but different lot
+               if lot and lot != move.lot:
+                   continue
                quantity += Uom.compute_qty(move.uom, move.quantity, move.product.default_uom, True)
 
         moves = {}
@@ -57,12 +59,11 @@ class Production(metaclass=PoolMeta):
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
-                    uom = self.uom
                     for bm in bom.inputs:
                         if bm.product == product:
                             default_uom = self.product.default_uom
                             bqty = Uom.compute_qty(
-                                uom, bm.quantity, default_uom, True)
+                                bm.uom, bm.quantity, bm.product.default_uom, True)
                             factor = bom.compute_factor(self.product, bqty, default_uom)
                             balance_plan_consumption = default_uom.ceil(self.quantity * factor)
                             break
@@ -84,12 +85,11 @@ class Production(metaclass=PoolMeta):
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
-                    uom = self.uom
                     for bm in bom.inputs:
                         if bm.product == requested_product:
                             default_uom = self.product.default_uom
                             bqty = Uom.compute_qty(
-                                uom, bm.quantity, default_uom, True)
+                                bm.uom, bm.quantity, bm.product.default_uom, True)
                             factor = bom.compute_factor(self.product, bqty, default_uom)
                             balance_plan_consumption = default_uom.ceil(self.quantity * factor)
                             break
@@ -249,6 +249,7 @@ class PrintProductionMassBalanceSReport(HTMLReport):
 
         requested_product = Product(data['product'])
         direction = data['direction']
+        lot = Lot(data['lot']) if data.get('lot') else None
 
         parameters = {}
         parameters['direction'] = direction
@@ -256,7 +257,7 @@ class PrintProductionMassBalanceSReport(HTMLReport):
         parameters['to_date'] = to_date
         parameters['show_date'] = bool(data.get('from_date'))
         parameters['requested_product'] = requested_product
-        parameters['lot'] = Lot(data['lot']) if data.get('lot') else None
+        parameters['lot'] = lot
 
         # TODO get url from trytond.url issue8767
         if BASE_URL:
@@ -281,8 +282,8 @@ class PrintProductionMassBalanceSReport(HTMLReport):
                     ('outputs.state', '=', 'done'),
                     ('company', '=', company_id),
                     ]
-            if data.get('lot'):
-                domain += [('outputs.lot', '=', data['lot'])]
+            if lot:
+                domain += [('outputs.lot', '=', lot)]
         else:
             domain = [
                     ('inputs.product', '=', requested_product),
@@ -291,14 +292,15 @@ class PrintProductionMassBalanceSReport(HTMLReport):
                     ('inputs.state', '=', 'done'),
                     ('company', '=', company_id),
                     ]
-            if data.get('lot'):
-                domain += [('inputs.lot', '=', data['lot'])]
+            if lot:
+                domain += [('inputs.lot', '=', lot)]
 
         productions = Production.search(domain)
 
         records = {}
         for production in productions:
-            res = production.mass_balance_report_data(requested_product, direction)
+            res = production.mass_balance_report_data(requested_product,
+                    direction, lot)
 
             for key, values in res.items():
                 if not records.get(key):
