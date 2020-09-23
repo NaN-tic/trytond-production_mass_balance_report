@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-12 15:47+0100\n"
+"POT-Creation-Date: 2020-09-14 13:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: _helpers.html:5 _helpers.html:31
+#: _helpers.html:5
 msgid "Production"
 msgstr ""
 
-#: _helpers.html:6 _helpers.html:32 production_mass_balance_report.html:46
+#: _helpers.html:6 production_mass_balance_report.html:35
+#: production_mass_balance_report.html:52
 msgid "Quantity"
 msgstr ""
 
-#: _helpers.html:7 _helpers.html:33 production_mass_balance_report.html:47
+#: _helpers.html:7 production_mass_balance_report.html:36
+#: production_mass_balance_report.html:53
 msgid "Consumption"
 msgstr ""
 
-#: _helpers.html:8 _helpers.html:34 production_mass_balance_report.html:48
+#: _helpers.html:8 production_mass_balance_report.html:37
+#: production_mass_balance_report.html:54
 msgid "Plan Consumption"
 msgstr ""
 
-#: _helpers.html:9 _helpers.html:35 production_mass_balance_report.html:49
+#: _helpers.html:9 production_mass_balance_report.html:55
 msgid "Difference"
 msgstr ""
 
-#: _helpers.html:10 _helpers.html:36 production_mass_balance_report.html:50
+#: _helpers.html:10 production_mass_balance_report.html:56
 msgid "% DIFF"
 msgstr ""
 
@@ -63,7 +66,7 @@ msgid "Forward"
 msgstr ""
 
 #: production_mass_balance_report.html:30
-#: production_mass_balance_report.html:45
+#: production_mass_balance_report.html:51
 msgid "Product"
 msgstr ""
 
@@ -72,10 +75,24 @@ msgid "Lot"
 msgstr ""
 
 #: production_mass_balance_report.html:35
-msgid "From Date"
+msgid "quantity produced including all outgoing moves in production"
 msgstr ""
 
 #: production_mass_balance_report.html:36
+msgid "amount of product consumed per production"
+msgstr ""
+
+#: production_mass_balance_report.html:37
+msgid ""
+"calculated consumption out of production's quantity field (initial "
+"production quantity)"
+msgstr ""
+
+#: production_mass_balance_report.html:41
+msgid "From Date"
+msgstr ""
+
+#: production_mass_balance_report.html:42
 msgid "To Date"
 msgstr ""
 
