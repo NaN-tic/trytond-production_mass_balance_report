@@ -30,7 +30,13 @@
           <td><strong>{{ _('Product') }}:</strong> {{ data['parameters']['requested_product'].rec_name }}</td>
           <td>{% if data['parameters']['lot'] %}<strong>{{ _('Lot') }}:</strong> {{ data['parameters']['lot'].number }}{% endif %}</td>
         </tr>
-
+        <tr>
+          <td colspan="2">
+            <strong>{{ _('Quantity') }}:</strong> {{ _('quantity produced including all outgoing moves in production') }}<br>
+            <strong>{{ _('Consumption') }}:</strong> {{ _('amount of product consumed per production') }}<br>
+            <strong>{{ _('Plan Consumption') }}:</strong> {{ _("calculated consumption out of production's quantity field (initial production quantity)") }}
+          </td>
+        </tr>
         {% if data['parameters']['show_date'] %}<tr>
           <td><strong>{{ _('From Date') }}:</strong> {{ data['parameters']['from_date']|dateformat }}</td>
           <td><strong>{{ _('To Date') }}:</strong> {{ data['parameters']['to_date']|dateformat }}</td>
