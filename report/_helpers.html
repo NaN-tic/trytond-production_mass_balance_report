@@ -13,11 +13,11 @@
   <tbody>
     {% for production in productions %}<tr>
       <td width="50%"><a href='{{ parameters['base_url'] }}/model/production/{{ production.id }};name="{{ production.name }}"'>{{ production.name }}</a></td>
-      <td width="10%">{{ production.balance_quantity|render_field(decimal_digits=4) }} {{ production.balance_quantity_uom.symbol }}</td>
-      <td width="10%">{{ production.balance_consumption|render_field(decimal_digits=4) }} {{ production.balance_consumption_uom.symbol }}</td>
-      <td width="10%">{{ production.balance_plan_consumption|render_field(decimal_digits=4) }} {{ production.balance_plan_consumption_uom.symbol }}</td>
-      <td width="10%">{{ production.balance_difference|render_field(decimal_digits=4) }} {{ production.balance_difference_uom.symbol }}</td>
-      <td width="10%">{{ production.balance_difference_percent|render_field }} %</td>
+      <td width="10%">{{ production.balance_quantity|render(digits=4) }} {{ production.balance_quantity_uom.symbol }}</td>
+      <td width="10%">{{ production.balance_consumption|render(digits=4) }} {{ production.balance_consumption_uom.symbol }}</td>
+      <td width="10%">{{ production.balance_plan_consumption|render(digits=4) }} {{ production.balance_plan_consumption_uom.symbol }}</td>
+      <td width="10%">{{ production.balance_difference|render(digits=4) }} {{ production.balance_difference_uom.symbol }}</td>
+      <td width="10%">{{ production.balance_difference_percent|render }} %</td>
     </tr>{% endfor %}
   </tbody>
 </table>
