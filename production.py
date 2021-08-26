@@ -24,7 +24,7 @@ class Production(metaclass=PoolMeta):
     def mass_balance_report_data(self, requested_product, direction, lot=None):
         Uom = Pool().get('product.uom')
 
-        digits = self.on_change_with_unit_digits()
+        digits = self.uom and self.uom.digits or 2
         quantity = 0.0
         for move in getattr(self, 'outputs' if direction == 'backward' else 'inputs'):
             if move.product == requested_product:
