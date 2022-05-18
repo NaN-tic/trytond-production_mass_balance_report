@@ -27,6 +27,8 @@ class Production(metaclass=PoolMeta):
         digits = self.uom and self.uom.digits or 2
         quantity = 0.0
         for move in getattr(self, 'outputs' if direction == 'backward' else 'inputs'):
+            if move.state == 'cancelled':
+                continue
             if move.product == requested_product:
                 # skip moves that same product but different lot
                 if lot and lot != move.lot:
@@ -35,6 +37,8 @@ class Production(metaclass=PoolMeta):
 
         moves = {}
         for move in getattr(self, 'inputs' if direction == 'backward' else 'outputs'):
+            if move.state == 'cancelled':
+                continue
             product = move.product
             mqty = Uom.compute_qty(
                 move.uom, move.quantity, move.product.default_uom, False)
