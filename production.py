@@ -58,8 +58,7 @@ class Production(metaclass=PoolMeta):
 
             if direction == 'backward':
                 balance_quantity = quantity
-                balance_consumption = (quantity * qty ) / qty
-
+                balance_consumption = qty
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
@@ -85,8 +84,7 @@ class Production(metaclass=PoolMeta):
                 item['balance_difference_uom'] = product.default_uom
             else:
                 balance_quantity = qty
-                balance_consumption = (quantity * qty ) / qty
-
+                balance_consumption = quantity
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
