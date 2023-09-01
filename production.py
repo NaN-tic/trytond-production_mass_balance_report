@@ -26,10 +26,12 @@ class Production(metaclass=PoolMeta):
 
         digits = self.uom and self.uom.digits or 2
         quantity = 0.0
+        total_product = 0.0
         for move in getattr(self, 'outputs' if direction == 'backward' else 'inputs'):
             if move.state == 'cancelled':
                 continue
             if move.product == requested_product:
+                total_product += Uom.compute_qty(move.uom, move.quantity, move.product.default_uom, False)
                 # skip moves that same product but different lot
                 if lot and lot != move.lot:
                     continue
@@ -58,7 +60,9 @@ class Production(metaclass=PoolMeta):
 
             if direction == 'backward':
                 balance_quantity = quantity
-                balance_consumption = qty
+                # balance_consumption = qty
+                balance_consumption = (qty * quantity) / total_product
+
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
@@ -84,7 +88,9 @@ class Production(metaclass=PoolMeta):
                 item['balance_difference_uom'] = product.default_uom
             else:
                 balance_quantity = qty
-                balance_consumption = quantity
+                # balance_consumption = quantity
+                balance_consumption = (qty * quantity) / total_product
+
                 balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
                 if self.bom:
                     bom = self.bom
