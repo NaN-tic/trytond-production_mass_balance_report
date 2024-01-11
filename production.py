@@ -146,14 +146,14 @@ class PrintProductionMassBalanceStart(ModelView):
                 ('from_date', '<=', Eval('to_date')), ())],
         states={
             'required': Bool(Eval('to_date', False)),
-        }, depends=['to_date'])
+        })
     to_date = fields.Date('To Date',
         domain = [
             If(Bool(Eval('from_date')) & Bool(Eval('to_date')),
                 ('from_date', '<=', Eval('to_date')), ())],
         states={
             'required': Bool(Eval('from_date', False)),
-        }, depends=['from_date'])
+        })
     direction = fields.Selection([
         ('backward', 'Backward'),
         ('forward', 'Forward'),
