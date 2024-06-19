@@ -27,15 +27,18 @@ class Production(metaclass=PoolMeta):
         digits = self.uom and self.uom.digits or 2
         quantity = 0.0
         total_product = 0.0
-        for move in getattr(self, 'outputs' if direction == 'backward' else 'inputs'):
+        for move in getattr(self, 'outputs'
+                if direction == 'backward' else 'inputs'):
             if move.state == 'cancelled':
                 continue
             if move.product == requested_product:
-                total_product += Uom.compute_qty(move.uom, move.quantity, move.product.default_uom, False)
+                total_product += Uom.compute_qty(move.uom, move.quantity,
+                    move.product.default_uom, False)
                 # skip moves that same product but different lot
                 if lot and lot != move.lot:
                     continue
-                quantity += Uom.compute_qty(move.uom, move.quantity, move.product.default_uom, False)
+                quantity += Uom.compute_qty(move.uom, move.quantity,
+                    move.product.default_uom, False)
 
         moves = {}
         for move in getattr(self, 'inputs' if direction == 'backward' else 'outputs'):
@@ -60,24 +63,27 @@ class Production(metaclass=PoolMeta):
 
             if direction == 'backward':
                 balance_quantity = quantity
-                # balance_consumption = qty
-                balance_consumption = ((qty * quantity) / total_product) if total_product != 0. else 0
+                balance_consumption = (
+                    ((qty * quantity) / total_product)
+                    if total_product != 0. else 0)
 
-                balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
+                balance_plan_consumption = 0.0
+                balance_difference = 0.0
                 if self.bom:
                     bom = self.bom
                     for bm in bom.inputs:
                         if bm.product == product:
-                            default_uom = self.product.default_uom
-                            bqty = Uom.compute_qty(
-                                bm.uom, bm.quantity, bm.product.default_uom, False)
-                            factor = bom.compute_factor(self.product, bqty, default_uom)
-                            balance_plan_consumption = default_uom.ceil(self.quantity * factor)
+                            bqty = Uom.compute_qty(bm.uom, bm.quantity,
+                                bm.product.default_uom, False)
+                            factor = bom.compute_factor(self.product, bqty,
+                                self.product.default_uom)
+                            balance_plan_consumption = (
+                                product.default_uom.floor(
+                                    self.quantity * factor))
                             break
 
-                    balance_difference = round(qty - balance_plan_consumption, digits)
-                    if balance_consumption and balance_plan_consumption:
-                        balance_difference_percent = ((balance_consumption - balance_plan_consumption) / balance_plan_consumption) * 100
+                    balance_difference = round(qty - balance_plan_consumption,
+                        digits)
                 item['balance_quantity'] = balance_quantity
                 item['balance_consumption'] += balance_consumption
                 item['balance_plan_consumption'] += balance_plan_consumption
@@ -89,32 +95,40 @@ class Production(metaclass=PoolMeta):
             else:
                 balance_quantity = qty
                 # balance_consumption = quantity
-                balance_consumption = ((qty * quantity) / total_product) if total_product != 0. else 0
+                balance_consumption = (
+                    ((qty * quantity) / total_product)
+                    if total_product != 0. else 0)
 
-                balance_plan_consumption = balance_difference = balance_difference_percent = 0.0
+                balance_plan_consumption = 0.0
+                balance_difference = 0.0
                 if self.bom:
                     bom = self.bom
                     for bm in bom.inputs:
                         if bm.product == requested_product:
-                            default_uom = self.product.default_uom
-                            bqty = Uom.compute_qty(
-                                bm.uom, bm.quantity, bm.product.default_uom, False)
-                            factor = bom.compute_factor(self.product, bqty, default_uom)
-                            balance_plan_consumption = default_uom.ceil(self.quantity * factor)
+                            bqty = Uom.compute_qty(bm.uom, bm.quantity,
+                                bm.product.default_uom, False)
+                            factor = bom.compute_factor(self.product, bqty,
+                                self.product.default_uom)
+                            balance_plan_consumption = default_uom.floor(
+                                self.quantity * factor)
                             break
 
-                    balance_difference = round(quantity - balance_plan_consumption, digits)
-                    if balance_consumption and balance_plan_consumption:
-                        balance_difference_percent = ((balance_consumption - balance_plan_consumption) / balance_plan_consumption) * 100
+                    balance_difference = round(
+                        quantity - balance_plan_consumption, digits)
                 item['balance_quantity'] = balance_quantity
                 item['balance_consumption'] += balance_consumption
                 item['balance_plan_consumption'] += balance_plan_consumption
                 item['balance_difference'] += balance_difference
                 item['balance_quantity_uom'] = product.default_uom
                 item['balance_consumption_uom'] = requested_product.default_uom
-                item['balance_plan_consumption_uom'] = requested_product.default_uom
+                item['balance_plan_consumption_uom'] = (
+                    requested_product.default_uom)
                 item['balance_difference_uom'] = requested_product.default_uom
 
+            balance_difference_percent = ((
+                    (balance_consumption - balance_plan_consumption) /
+                    balance_plan_consumption) * 100
+                if balance_consumption and balance_plan_consumption else 0.0)
             vals = {
                 'id': self.id,
                 'name': self.rec_name,
