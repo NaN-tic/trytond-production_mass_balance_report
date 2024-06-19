@@ -109,8 +109,9 @@ class Production(metaclass=PoolMeta):
                                 bm.product.default_uom, False)
                             factor = bom.compute_factor(self.product, bqty,
                                 self.product.default_uom)
-                            balance_plan_consumption = default_uom.floor(
-                                self.quantity * factor)
+                            balance_plan_consumption = (
+                                product.default_uom.floor(
+                                    self.quantity * factor))
                             break
 
                     balance_difference = round(
