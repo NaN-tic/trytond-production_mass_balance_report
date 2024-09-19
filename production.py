@@ -41,7 +41,8 @@ class Production(metaclass=PoolMeta):
                     move.product.default_uom, False)
 
         moves = {}
-        for move in getattr(self, 'inputs' if direction == 'backward' else 'outputs'):
+        for move in getattr(self, 'inputs'
+                if direction == 'backward' else 'outputs'):
             if move.state == 'cancelled':
                 continue
             product = move.product
@@ -94,7 +95,6 @@ class Production(metaclass=PoolMeta):
                 item['balance_difference_uom'] = product.default_uom
             else:
                 balance_quantity = qty
-                # balance_consumption = quantity
                 balance_consumption = (
                     ((qty * quantity) / total_product)
                     if total_product != 0. else 0)
@@ -115,7 +115,9 @@ class Production(metaclass=PoolMeta):
                             break
 
                     balance_difference = round(
-                        quantity - balance_plan_consumption, digits)
+                        balance_consumption - balance_plan_consumption, digits)
+                        #qty - balance_plan_consumption, digits)
+                        #quantity - balance_plan_consumption, digits)
                 item['balance_quantity'] = balance_quantity
                 item['balance_consumption'] += balance_consumption
                 item['balance_plan_consumption'] += balance_plan_consumption
