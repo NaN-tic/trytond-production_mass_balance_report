@@ -21,6 +21,7 @@ _ZERO = 0.0
 class Production(metaclass=PoolMeta):
     __name__ = 'production'
 
+
     def mass_balance_report_data(self, requested_product, direction, lot=None):
         Uom = Pool().get('product.uom')
 
@@ -62,71 +63,41 @@ class Production(metaclass=PoolMeta):
             item.setdefault('balance_difference', 0.0)
             item.setdefault('productions', [])
 
-            if direction == 'backward':
-                balance_quantity = quantity
-                balance_consumption = (
-                    ((qty * quantity) / total_product)
+            prod = product if direction == 'backward' else requested_product
+            balance_consumption = ((((qty * quantity) / total_product)
                     if total_product != 0. else 0)
+                if direction == 'backward' else quantity)
 
-                balance_plan_consumption = 0.0
-                balance_difference = 0.0
-                if self.bom:
-                    bom = self.bom
-                    for bm in bom.inputs:
-                        if bm.product == product:
-                            bqty = Uom.compute_qty(bm.uom, bm.quantity,
-                                bm.product.default_uom, False)
-                            factor = bom.compute_factor(self.product, bqty,
-                                self.product.default_uom)
-                            balance_plan_consumption = (
-                                product.default_uom.floor(
-                                    self.quantity * factor))
-                            break
+            balance_plan_consumption = 0.0
+            balance_difference = 0.0
+            if self.bom:
+                bom = self.bom
+                for bm in bom.inputs:
+                    if bm.product == prod:
+                        bqty = Uom.compute_qty(bm.uom, bm.quantity,
+                            bm.product.default_uom, False)
+                        factor = bom.compute_factor(self.product, bqty,
+                            self.product.default_uom)
+                        balance_plan_consumption = (
+                            product.default_uom.floor(
+                                self.quantity * factor))
+                        break
 
+                if direction == 'backward':
                     balance_difference = round(qty - balance_plan_consumption,
                         digits)
-                item['balance_quantity'] = balance_quantity
-                item['balance_consumption'] += balance_consumption
-                item['balance_plan_consumption'] += balance_plan_consumption
-                item['balance_difference'] += balance_difference
-                item['balance_quantity_uom'] = requested_product.default_uom
-                item['balance_consumption_uom'] = product.default_uom
-                item['balance_plan_consumption_uom'] = product.default_uom
-                item['balance_difference_uom'] = product.default_uom
-            else:
-                balance_quantity = qty
-                balance_consumption = (
-                    ((qty * quantity) / total_product)
-                    if total_product != 0. else 0)
-
-                balance_plan_consumption = 0.0
-                balance_difference = 0.0
-                if self.bom:
-                    bom = self.bom
-                    for bm in bom.inputs:
-                        if bm.product == requested_product:
-                            bqty = Uom.compute_qty(bm.uom, bm.quantity,
-                                bm.product.default_uom, False)
-                            factor = bom.compute_factor(self.product, bqty,
-                                self.product.default_uom)
-                            balance_plan_consumption = (
-                                product.default_uom.floor(
-                                    self.quantity * factor))
-                            break
-
+                else:
                     balance_difference = round(
-                        balance_consumption - balance_plan_consumption, digits)
-                        #qty - balance_plan_consumption, digits)
-                        #quantity - balance_plan_consumption, digits)
-                item['balance_quantity'] = balance_quantity
-                item['balance_consumption'] += balance_consumption
-                item['balance_plan_consumption'] += balance_plan_consumption
-                item['balance_difference'] += balance_difference
-                item['balance_quantity_uom'] = product.default_uom
-                item['balance_consumption_uom'] = requested_product.default_uom
-                item['balance_plan_consumption_uom'] = (
-                    requested_product.default_uom)
-                item['balance_difference_uom'] = requested_product.default_uom
+                        quantity - balance_plan_consumption, digits)
+            item['balance_quantity'] = quantity
+            item['balance_consumption'] += balance_consumption
+            item['balance_plan_consumption'] += balance_plan_consumption
+            item['balance_difference'] += balance_difference
+            item['balance_quantity_uom'] = (requested_product.default_uom
+                if direction == 'backward' else product.default_uom)
+            item['balance_consumption_uom'] = prod.default_uom
+            item['balance_plan_consumption_uom'] = prod.default_uom
+            item['balance_difference_uom'] = prod.default_uom
 
             balance_difference_percent = ((
                     (balance_consumption - balance_plan_consumption) /
@@ -138,7 +109,7 @@ class Production(metaclass=PoolMeta):
                 'product': self.product,
                 'uom': self.uom,
                 'default_uom': product.default_uom,
-                'balance_quantity': balance_quantity,
+                'balance_quantity': quantity,
                 'balance_consumption': balance_consumption,
                 'balance_plan_consumption': balance_plan_consumption,
                 'balance_difference': balance_difference,
