@@ -26,10 +26,6 @@ msgctxt "field:production.mass_balance.start,direction:"
 msgid "Type"
 msgstr "Tipus"
 
-msgctxt "model:ir.action,name:"
-msgid "Mass Balance"
-msgstr "Balanç de masses"
-
 msgctxt "model:ir.action,name:print_production_mass_balance"
 msgid "Mass Balance"
 msgstr "Balanç de masses"
