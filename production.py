@@ -33,12 +33,12 @@ class Production(metaclass=PoolMeta):
             if move.state == 'cancelled':
                 continue
             if move.product == requested_product:
-                total_product += Uom.compute_qty(move.uom, move.quantity,
+                total_product += Uom.compute_qty(move.unit, move.quantity,
                     move.product.default_uom, False)
                 # skip moves that same product but different lot
                 if lot and lot != move.lot:
                     continue
-                quantity += Uom.compute_qty(move.uom, move.quantity,
+                quantity += Uom.compute_qty(move.unit, move.quantity,
                     move.product.default_uom, False)
 
         moves = {}
@@ -48,7 +48,7 @@ class Production(metaclass=PoolMeta):
                 continue
             product = move.product
             mqty = Uom.compute_qty(
-                move.uom, move.quantity, move.product.default_uom, False)
+                move.unit, move.quantity, move.product.default_uom, False)
             if moves.get(product):
                 moves[product] += mqty
             else:
