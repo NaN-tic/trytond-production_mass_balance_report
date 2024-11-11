@@ -303,7 +303,7 @@ class PrintProductionMassBalanceReport(HTMLReport):
 
     @classmethod
     def execute(cls, ids, data):
-        context = Transaction().context
+        context = Transaction().context and Transaction().context.copy() or {}
         context['report_lang'] = Transaction().language
         context['report_translations'] = os.path.join(
             os.path.dirname(__file__), 'report', 'translations')
