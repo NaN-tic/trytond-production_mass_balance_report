@@ -84,7 +84,7 @@ class ProductionMassBalanceReportTestCase(CompanyTestMixin, ModuleTestCase):
             input2.product = component2
             input2.on_change_product()
             input2.quantity = 150
-            input2.uom = centimeter
+            input2.unit = centimeter
             input2.save()
             output = BOMOutput(bom=bom)
             output.product = product
@@ -157,7 +157,7 @@ class ProductionMassBalanceReportTestCase(CompanyTestMixin, ModuleTestCase):
                              True)
             self.assertEqual(
                 len(set(i.effective_date == today for i in production.inputs)), 1)
-            Production.done([production])
+            Production.do([production])
             output, = production.outputs
             self.assertEqual(output.state, 'done')
             self.assertEqual(output.effective_date, production.effective_date)
@@ -187,7 +187,7 @@ class ProductionMassBalanceReportTestCase(CompanyTestMixin, ModuleTestCase):
             self.assertEqual(
                 all(i.effective_date == before_yesterday
                     for i in production.inputs), True)
-            Production.done([production])
+            Production.do([production])
 
             res = production.mass_balance_report_data(component1, direction='forward', lot=None)
             self.assertEqual(res[product]['balance_quantity'], 10.0)

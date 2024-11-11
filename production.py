@@ -25,7 +25,7 @@ class Production(metaclass=PoolMeta):
     def mass_balance_report_data(self, requested_product, direction, lot=None):
         Uom = Pool().get('product.uom')
 
-        digits = self.uom and self.uom.digits or 2
+        digits = self.unit and self.unit.digits or 2
         quantity = 0.0
         total_product = 0.0
         for move in getattr(self, 'outputs'
@@ -74,7 +74,7 @@ class Production(metaclass=PoolMeta):
                 bom = self.bom
                 for bm in bom.inputs:
                     if bm.product == prod:
-                        bqty = Uom.compute_qty(bm.uom, bm.quantity,
+                        bqty = Uom.compute_qty(bm.unit, bm.quantity,
                             bm.product.default_uom, False)
                         factor = bom.compute_factor(self.product, bqty,
                             self.product.default_uom)
@@ -107,7 +107,7 @@ class Production(metaclass=PoolMeta):
                 'id': self.id,
                 'name': self.rec_name,
                 'product': self.product,
-                'uom': self.uom,
+                'uom': self.unit,
                 'default_uom': product.default_uom,
                 'balance_quantity': quantity,
                 'balance_consumption': balance_consumption,
