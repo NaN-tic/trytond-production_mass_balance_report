@@ -9,6 +9,7 @@ from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.transaction import Transaction
 from trytond.modules.html_report.dominate_report import DominateReportMixin
 from trytond.url import http_host
+from trytond.modules.html_report.i18n import _
 from dominate.util import raw
 from dominate.tags import (a, button, div, h1, i, script, strong, table, tbody,
     td, th, thead, tr)
@@ -299,12 +300,12 @@ class PrintProductionMassBalanceReport(DominateReportMixin, metaclass=PoolMeta):
         with details_table:
             with thead():
                 with tr():
-                    th('Production', scope='col')
-                    th('Quantity', scope='col')
-                    th('Consumption', scope='col')
-                    th('Plan Consumption', scope='col')
-                    th('Difference', scope='col')
-                    th('% DIFF', scope='col')
+                    th(_('Production'), scope='col')
+                    th(_('Quantity'), scope='col')
+                    th(_('Consumption'), scope='col')
+                    th(_('Plan Consumption'), scope='col')
+                    th(_('Difference'), scope='col')
+                    th(_('% DIFF'), scope='col')
             with tbody():
                 for production in productions:
                     with tr():
@@ -345,7 +346,7 @@ class PrintProductionMassBalanceReport(DominateReportMixin, metaclass=PoolMeta):
 
     @classmethod
     def title(cls, action, data, records):
-        return 'Mass Balance'
+        return _('Mass Balance')
 
     @classmethod
     def body(cls, action, data, records):
@@ -357,59 +358,63 @@ class PrintProductionMassBalanceReport(DominateReportMixin, metaclass=PoolMeta):
                 with tbody():
                     with tr():
                         with td():
-                            h1('Mass Balance')
+                            h1(_('Mass Balance'))
                         with td(align='right'):
                             company = parameters['company']
                             a(company.rec_name,
                                 href=parameters['base_url'],
                                 alt=company.rec_name)
-                            button('Expand All',
+                            button(_('Expand All'),
                                 type='button',
                                 cls='btn tn-outline-light btn-sm',
                                 onclick='expand()')
                     with tr():
                         with td(colspan='2'):
-                            strong('Efficiency Product Type:')
+                            strong(_('Efficiency Product Type:'))
                             raw(' %s' % (
-                                'Backward' if parameters['direction'] == 'backward'
-                                else 'Forward'))
+                                _('Backward')
+                                if parameters['direction'] == 'backward'
+                                else _('Forward')))
                     with tr():
                         with td():
-                            strong('Product:')
+                            strong(_('Product:'))
                             raw(' %s' % parameters['requested_product'].rec_name)
                         with td():
                             if parameters.get('lot'):
-                                strong('Lot:')
+                                strong(_('Lot:'))
                                 raw(' %s' % parameters['lot'].number)
                     with tr():
                         with td(colspan='2'):
-                            strong('Quantity:')
-                            raw(' quantity produced including all outgoing moves in production')
+                            strong(_('Quantity:'))
+                            raw(' %s' % _(
+                                'quantity produced including all outgoing moves in production'))
                             raw('<br>')
-                            strong('Consumption:')
-                            raw(' amount of product consumed per production')
+                            strong(_('Consumption:'))
+                            raw(' %s' % _(
+                                'amount of product consumed per production'))
                             raw('<br>')
-                            strong('Plan Consumption:')
-                            raw(" calculated consumption out of production's quantity field (initial production quantity)")
+                            strong(_('Plan Consumption:'))
+                            raw(' %s' % _(
+                                "calculated consumption out of production's quantity field (initial production quantity)"))
                     if parameters.get('show_date'):
                         with tr():
                             with td():
-                                strong('From Date:')
+                                strong(_('From Date:'))
                                 raw(' %s' % render(parameters['from_date']))
                             with td():
-                                strong('To Date:')
+                                strong(_('To Date:'))
                                 raw(' %s' % render(parameters['to_date']))
                     with tr():
                         with td(colspan='2'):
                             with table(cls='table', id='detail'):
                                 with thead():
                                     with tr():
-                                        th('Product', scope='col', width='50%')
-                                        th('Quantity', scope='col', width='10%')
-                                        th('Consumption', scope='col', width='10%')
-                                        th('Plan Consumption', scope='col', width='10%')
-                                        th('Difference', scope='col', width='10%')
-                                        th('% DIFF', scope='col', width='10%')
+                                        th(_('Product'), scope='col', width='50%')
+                                        th(_('Quantity'), scope='col', width='10%')
+                                        th(_('Consumption'), scope='col', width='10%')
+                                        th(_('Plan Consumption'), scope='col', width='10%')
+                                        th(_('Difference'), scope='col', width='10%')
+                                        th(_('% DIFF'), scope='col', width='10%')
                                 with tbody():
                                     for product, values in data['records'].items():
                                         key = 'product-%s' % product.id
