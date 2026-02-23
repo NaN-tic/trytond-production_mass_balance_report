@@ -1,6 +1,5 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-import os
 from datetime import datetime
 from collections import OrderedDict
 from trytond.model import fields, ModelView
@@ -8,8 +7,11 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval, If
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.transaction import Transaction
-from trytond.modules.html_report.html_report import HTMLReport
+from trytond.modules.html_report.dominate_report import DominateReportMixin
 from trytond.url import http_host
+from dominate.util import raw
+from dominate.tags import (a, button, div, h1, i, script, strong, table, tbody,
+    td, th, thead, tr)
 
 
 __all__ = ['Production', 'PrintProductionMassBalanceStart',
@@ -213,18 +215,8 @@ class PrintProductionMassBalance(Wizard):
         return action, data
 
 
-class PrintProductionMassBalanceReport(HTMLReport):
+class PrintProductionMassBalanceReport(DominateReportMixin, metaclass=PoolMeta):
     __name__ = 'production.mass_balance.report'
-
-    @classmethod
-    def get_context(cls, records, data):
-        pool = Pool()
-        Company = pool.get('company.company')
-        t_context = Transaction().context
-
-        context = super().get_context(records, data)
-        context['company'] = Company(t_context['company'])
-        return context
 
     @classmethod
     def prepare(cls, data):
@@ -301,21 +293,198 @@ class PrintProductionMassBalanceReport(HTMLReport):
         return records, parameters
 
     @classmethod
-    def execute(cls, ids, data):
-        context = Transaction().context and Transaction().context.copy() or {}
-        context['report_lang'] = Transaction().language
-        context['report_translations'] = os.path.join(
-            os.path.dirname(__file__), 'report', 'translations')
+    def _draw_table(cls, key, productions, parameters):
+        render = cls.render
+        details_table = table(cls='table collapse multi-collapse', id=key)
+        with details_table:
+            with thead():
+                with tr():
+                    th('Production', scope='col')
+                    th('Quantity', scope='col')
+                    th('Consumption', scope='col')
+                    th('Plan Consumption', scope='col')
+                    th('Difference', scope='col')
+                    th('% DIFF', scope='col')
+            with tbody():
+                for production in productions:
+                    with tr():
+                        with td(width='50%'):
+                            a(production['name'],
+                                href='%s/model/production/%s;name="%s"' % (
+                                    parameters['base_url'],
+                                    production['id'],
+                                    production['name']))
+                        td('%s %s' % (
+                            render(production['balance_quantity'], digits=4),
+                            production['balance_quantity_uom'].symbol),
+                            width='10%')
+                        td('%s %s' % (
+                            render(production['balance_consumption'], digits=4),
+                            production['balance_consumption_uom'].symbol),
+                            width='10%')
+                        td('%s %s' % (
+                            render(production['balance_plan_consumption'],
+                                digits=4),
+                            production['balance_plan_consumption_uom'].symbol),
+                            width='10%')
+                        td('%s %s' % (
+                            render(production['balance_difference'], digits=4),
+                            production['balance_difference_uom'].symbol),
+                            width='10%')
+                        td('%s %%' % render(
+                            production['balance_difference_percent']),
+                            width='10%')
+        return details_table
 
-        with Transaction().set_context(**context):
-            records, parameters = cls.prepare(data)
-            return super(PrintProductionMassBalanceReport, cls).execute(ids, {
-                    'name': 'production.mass_balance.report',
-                    'model': data['model'],
-                    'records': records,
-                    'parameters': parameters,
-                    'output_format': 'html',
-                    'report_options': {
-                        'now': datetime.now(),
-                        }
-                    })
+    @classmethod
+    def css(cls, action, data, records):
+        return "\n".join([
+            "@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');",
+            "@import url('https://use.fontawesome.com/releases/v5.7.0/css/all.css');",
+            ])
+
+    @classmethod
+    def title(cls, action, data, records):
+        return 'Mass Balance'
+
+    @classmethod
+    def body(cls, action, data, records):
+        parameters = data['parameters']
+        render = cls.render
+        wrapper = div()
+        with wrapper:
+            with table(cls='table'):
+                with tbody():
+                    with tr():
+                        with td():
+                            h1('Mass Balance')
+                        with td(align='right'):
+                            company = parameters['company']
+                            a(company.rec_name,
+                                href=parameters['base_url'],
+                                alt=company.rec_name)
+                            button('Expand All',
+                                type='button',
+                                cls='btn tn-outline-light btn-sm',
+                                onclick='expand()')
+                    with tr():
+                        with td(colspan='2'):
+                            strong('Efficiency Product Type:')
+                            raw(' %s' % (
+                                'Backward' if parameters['direction'] == 'backward'
+                                else 'Forward'))
+                    with tr():
+                        with td():
+                            strong('Product:')
+                            raw(' %s' % parameters['requested_product'].rec_name)
+                        with td():
+                            if parameters.get('lot'):
+                                strong('Lot:')
+                                raw(' %s' % parameters['lot'].number)
+                    with tr():
+                        with td(colspan='2'):
+                            strong('Quantity:')
+                            raw(' quantity produced including all outgoing moves in production')
+                            raw('<br>')
+                            strong('Consumption:')
+                            raw(' amount of product consumed per production')
+                            raw('<br>')
+                            strong('Plan Consumption:')
+                            raw(" calculated consumption out of production's quantity field (initial production quantity)")
+                    if parameters.get('show_date'):
+                        with tr():
+                            with td():
+                                strong('From Date:')
+                                raw(' %s' % render(parameters['from_date']))
+                            with td():
+                                strong('To Date:')
+                                raw(' %s' % render(parameters['to_date']))
+                    with tr():
+                        with td(colspan='2'):
+                            with table(cls='table', id='detail'):
+                                with thead():
+                                    with tr():
+                                        th('Product', scope='col', width='50%')
+                                        th('Quantity', scope='col', width='10%')
+                                        th('Consumption', scope='col', width='10%')
+                                        th('Plan Consumption', scope='col', width='10%')
+                                        th('Difference', scope='col', width='10%')
+                                        th('% DIFF', scope='col', width='10%')
+                                with tbody():
+                                    for product, values in data['records'].items():
+                                        key = 'product-%s' % product.id
+                                        with tr():
+                                            with td(width='50%'):
+                                                with a(href='#%s' % key,
+                                                    cls='',
+                                                    **{
+                                                        'data-toggle': 'collapse',
+                                                        'role': 'button',
+                                                        'aria-expanded': 'false',
+                                                        'aria-controls': key,
+                                                    }):
+                                                    i(cls='fas fa-angle-double-right')
+                                                    raw(' %s' % product.rec_name)
+                                            td('%s %s' % (
+                                                render(values['balance_quantity'],
+                                                    digits=4),
+                                                values['balance_quantity_uom'].symbol),
+                                                width='10%')
+                                            td('%s %s' % (
+                                                render(values['balance_consumption'],
+                                                    digits=4),
+                                                values['balance_consumption_uom'].symbol),
+                                                width='10%')
+                                            td('%s %s' % (
+                                                render(values['balance_plan_consumption'],
+                                                    digits=4),
+                                                values['balance_plan_consumption_uom'].symbol),
+                                                width='10%')
+                                            td('%s %s' % (
+                                                render(values['balance_difference'],
+                                                    digits=4),
+                                                values['balance_difference_uom'].symbol),
+                                                width='10%')
+                                            plan = values['balance_plan_consumption']
+                                            if plan:
+                                                percent = ((values['balance_consumption']
+                                                    - plan) / plan) * 100
+                                            else:
+                                                percent = 0.0
+                                            td('%s %%' % render(percent, digits=2),
+                                                width='10%')
+                                        with tr():
+                                            with td(colspan='6') as detail_cell:
+                                                detail_cell.add(cls._draw_table(
+                                                    key,
+                                                    values['productions'],
+                                                    parameters))
+            script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js',
+                integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo',
+                crossorigin='anonymous')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
+                integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1',
+                crossorigin='anonymous')
+            script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
+                integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM',
+                crossorigin='anonymous')
+            script(raw("""
+function expand() {
+  $('.collapse').collapse('show');
+}
+"""), type='text/javascript', charset='utf-8')
+        return wrapper
+
+    @classmethod
+    def execute(cls, ids, data):
+        records, parameters = cls.prepare(data)
+        return super().execute(ids, {
+            'name': 'production.mass_balance.report',
+            'model': data['model'],
+            'records': records,
+            'parameters': parameters,
+            'output_format': 'html',
+            'report_options': {
+                'now': datetime.now(),
+                }
+            })
