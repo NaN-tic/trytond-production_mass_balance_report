@@ -57,3 +57,91 @@ msgstr "Cancelar"
 msgctxt "wizard_button:production.print_mass_balance,start,print_:"
 msgid "Print"
 msgstr "Imprimir"
+
+msgctxt "html_report:h:"
+msgid "Mass Balance"
+msgstr "Balance de masas"
+
+msgctxt "html_report:h:"
+msgid "Expand All"
+msgstr "Expandir todo"
+
+msgctxt "html_report:h:"
+msgid "Efficiency Product Type:"
+msgstr "Tipo de eficiencia del producto:"
+
+msgctxt "html_report:h:"
+msgid "Backward"
+msgstr "Hacia atrás"
+
+msgctxt "html_report:h:"
+msgid "Forward"
+msgstr "Hacia delante"
+
+msgctxt "html_report:h:"
+msgid "Product:"
+msgstr "Producto:"
+
+msgctxt "html_report:h:"
+msgid "Lot:"
+msgstr "Lote:"
+
+msgctxt "html_report:h:"
+msgid "Quantity:"
+msgstr "Cantidad:"
+
+msgctxt "html_report:h:"
+msgid "quantity produced including all outgoing moves in production"
+msgstr "cantidad producida incluyendo todos los movimientos de salida en producción"
+
+msgctxt "html_report:h:"
+msgid "Consumption:"
+msgstr "Consumo:"
+
+msgctxt "html_report:h:"
+msgid "amount of product consumed per production"
+msgstr "cantidad de producto consumida por producción"
+
+msgctxt "html_report:h:"
+msgid "Plan Consumption:"
+msgstr "Consumo planificado:"
+
+msgctxt "html_report:h:"
+msgid "calculated consumption out of production's quantity field (initial production quantity)"
+msgstr "consumo calculado a partir del campo cantidad de producción (cantidad inicial de producción)"
+
+msgctxt "html_report:h:"
+msgid "From Date:"
+msgstr "Desde:"
+
+msgctxt "html_report:h:"
+msgid "To Date:"
+msgstr "Hasta:"
+
+msgctxt "html_report:h:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "html_report:h:"
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgctxt "html_report:h:"
+msgid "Consumption"
+msgstr "Consumo"
+
+msgctxt "html_report:h:"
+msgid "Plan Consumption"
+msgstr "Consumo planificado"
+
+msgctxt "html_report:h:"
+msgid "Difference"
+msgstr "Diferencia"
+
+msgctxt "html_report:h:"
+msgid "% DIFF"
+msgstr "% DIF"
+
+msgctxt "html_report:h:"
+msgid "Production"
+msgstr "Producción"
