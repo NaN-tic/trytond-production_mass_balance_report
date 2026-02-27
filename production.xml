@@ -7,9 +7,8 @@
         <record model="ir.action.report" id="report_production_mass_balance">
             <field name="name">Mass Balance</field>
             <field name="report_name">production.mass_balance.report</field>
-            <field name="report">production_mass_balance_report/report/production_mass_balance_report.html</field>
             <field name="extension">html</field>
-            <field name="template_extension">jinja</field>
+            <field name="template_extension">html</field>
         </record>
 
         <record model="ir.ui.view" id="print_production_mass_balance_start_view_form">

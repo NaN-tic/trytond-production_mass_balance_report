@@ -57,3 +57,91 @@ msgstr "Cancel·la"
 msgctxt "wizard_button:production.print_mass_balance,start,print_:"
 msgid "Print"
 msgstr "Imprimeix"
+
+msgctxt "html_report:h:"
+msgid "Mass Balance"
+msgstr "Balanç de masses"
+
+msgctxt "html_report:h:"
+msgid "Expand All"
+msgstr "Expandir-ho tot"
+
+msgctxt "html_report:h:"
+msgid "Efficiency Product Type:"
+msgstr "Tipus d'eficiència del producte:"
+
+msgctxt "html_report:h:"
+msgid "Backward"
+msgstr "Cap enrera"
+
+msgctxt "html_report:h:"
+msgid "Forward"
+msgstr "Cap endavant"
+
+msgctxt "html_report:h:"
+msgid "Product:"
+msgstr "Producte:"
+
+msgctxt "html_report:h:"
+msgid "Lot:"
+msgstr "Lot:"
+
+msgctxt "html_report:h:"
+msgid "Quantity:"
+msgstr "Quantitat:"
+
+msgctxt "html_report:h:"
+msgid "quantity produced including all outgoing moves in production"
+msgstr "quantitat produïda incloent tots els moviments de sortida en producció"
+
+msgctxt "html_report:h:"
+msgid "Consumption:"
+msgstr "Consum:"
+
+msgctxt "html_report:h:"
+msgid "amount of product consumed per production"
+msgstr "quantitat de producte consumida per producció"
+
+msgctxt "html_report:h:"
+msgid "Plan Consumption:"
+msgstr "Consum planificat:"
+
+msgctxt "html_report:h:"
+msgid "calculated consumption out of production's quantity field (initial production quantity)"
+msgstr "consum calculat a partir del camp quantitat de producció (quantitat inicial de producció)"
+
+msgctxt "html_report:h:"
+msgid "From Date:"
+msgstr "Des de:"
+
+msgctxt "html_report:h:"
+msgid "To Date:"
+msgstr "Fins:"
+
+msgctxt "html_report:h:"
+msgid "Product"
+msgstr "Producte"
+
+msgctxt "html_report:h:"
+msgid "Quantity"
+msgstr "Quantitat"
+
+msgctxt "html_report:h:"
+msgid "Consumption"
+msgstr "Consum"
+
+msgctxt "html_report:h:"
+msgid "Plan Consumption"
+msgstr "Consum planificat"
+
+msgctxt "html_report:h:"
+msgid "Difference"
+msgstr "Diferència"
+
+msgctxt "html_report:h:"
+msgid "% DIFF"
+msgstr "% DIF"
+
+msgctxt "html_report:h:"
+msgid "Production"
+msgstr "Producció"
