@@ -7,7 +7,7 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval, If
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.transaction import Transaction
-from trytond.modules.html_report.dominate_report import DominateReportMixin
+from trytond.modules.html_report.dominate_report import DominateReport
 from trytond.url import http_host
 from trytond.modules.html_report.i18n import _
 from dominate.util import raw
@@ -216,7 +216,7 @@ class PrintProductionMassBalance(Wizard):
         return action, data
 
 
-class PrintProductionMassBalanceReport(DominateReportMixin, metaclass=PoolMeta):
+class PrintProductionMassBalanceReport(DominateReport):
     __name__ = 'production.mass_balance.report'
 
     @classmethod
