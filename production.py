@@ -8,6 +8,7 @@ from trytond.pyson import Bool, Eval, If
 from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.transaction import Transaction
 from trytond.modules.html_report.dominate_report import DominateReport
+from trytond.modules.html_report.engine import render as html_render
 from trytond.url import http_host
 from trytond.modules.html_report.i18n import _
 from dominate.util import raw
@@ -295,7 +296,6 @@ class PrintProductionMassBalanceReport(DominateReport):
 
     @classmethod
     def _draw_table(cls, key, productions, parameters):
-        render = cls.render
         details_table = table(cls='table collapse multi-collapse', id=key)
         with details_table:
             with thead():
@@ -316,23 +316,23 @@ class PrintProductionMassBalanceReport(DominateReport):
                                     production['id'],
                                     production['name']))
                         td('%s %s' % (
-                            render(production['balance_quantity'], digits=4),
+                            html_render(production['balance_quantity'], digits=4),
                             production['balance_quantity_uom'].symbol),
                             width='10%')
                         td('%s %s' % (
-                            render(production['balance_consumption'], digits=4),
+                            html_render(production['balance_consumption'], digits=4),
                             production['balance_consumption_uom'].symbol),
                             width='10%')
                         td('%s %s' % (
-                            render(production['balance_plan_consumption'],
+                            html_render(production['balance_plan_consumption'],
                                 digits=4),
                             production['balance_plan_consumption_uom'].symbol),
                             width='10%')
                         td('%s %s' % (
-                            render(production['balance_difference'], digits=4),
+                            html_render(production['balance_difference'], digits=4),
                             production['balance_difference_uom'].symbol),
                             width='10%')
-                        td('%s %%' % render(
+                        td('%s %%' % html_render(
                             production['balance_difference_percent']),
                             width='10%')
         return details_table
@@ -351,7 +351,6 @@ class PrintProductionMassBalanceReport(DominateReport):
     @classmethod
     def body(cls, action, data, records):
         parameters = data['parameters']
-        render = cls.render
         wrapper = div()
         with wrapper:
             with table(cls='table'):
@@ -400,10 +399,10 @@ class PrintProductionMassBalanceReport(DominateReport):
                         with tr():
                             with td():
                                 strong(_('From Date:'))
-                                raw(' %s' % render(parameters['from_date']))
+                                raw(' %s' % html_render(parameters['from_date']))
                             with td():
                                 strong(_('To Date:'))
-                                raw(' %s' % render(parameters['to_date']))
+                                raw(' %s' % html_render(parameters['to_date']))
                     with tr():
                         with td(colspan='2'):
                             with table(cls='table', id='detail'):
@@ -431,22 +430,22 @@ class PrintProductionMassBalanceReport(DominateReport):
                                                     i(cls='fas fa-angle-double-right')
                                                     raw(' %s' % product.rec_name)
                                             td('%s %s' % (
-                                                render(values['balance_quantity'],
+                                                html_render(values['balance_quantity'],
                                                     digits=4),
                                                 values['balance_quantity_uom'].symbol),
                                                 width='10%')
                                             td('%s %s' % (
-                                                render(values['balance_consumption'],
+                                                html_render(values['balance_consumption'],
                                                     digits=4),
                                                 values['balance_consumption_uom'].symbol),
                                                 width='10%')
                                             td('%s %s' % (
-                                                render(values['balance_plan_consumption'],
+                                                html_render(values['balance_plan_consumption'],
                                                     digits=4),
                                                 values['balance_plan_consumption_uom'].symbol),
                                                 width='10%')
                                             td('%s %s' % (
-                                                render(values['balance_difference'],
+                                                html_render(values['balance_difference'],
                                                     digits=4),
                                                 values['balance_difference_uom'].symbol),
                                                 width='10%')
@@ -456,7 +455,7 @@ class PrintProductionMassBalanceReport(DominateReport):
                                                     - plan) / plan) * 100
                                             else:
                                                 percent = 0.0
-                                            td('%s %%' % render(percent, digits=2),
+                                            td('%s %%' % html_render(percent, digits=2),
                                                 width='10%')
                                         with tr():
                                             with td(colspan='6') as detail_cell:
