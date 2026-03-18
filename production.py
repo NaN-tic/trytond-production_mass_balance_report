@@ -72,16 +72,21 @@ class Production(metaclass=PoolMeta):
             balance_difference = 0.0
             if self.bom:
                 bom = self.bom
+                bqty = 0.0
                 for bm in bom.inputs:
                     if bm.product == prod:
-                        bqty = Uom.compute_qty(bm.unit, bm.quantity,
+                        bqty += Uom.compute_qty(bm.unit, bm.quantity,
                             bm.product.default_uom, False)
-                        factor = bom.compute_factor(self.product, bqty,
-                            self.product.default_uom)
-                        balance_plan_consumption = (
-                            product.default_uom.floor(
-                                self.quantity * factor))
-                        break
+                        # To ensure that all is calcaultaed correctly, round
+                        # after UOM convert and add with the possible qty
+                        # existent. It will be the more equl to consumption
+                        # expected related with consumption.
+                        bqty = bm.unit.round(bqty)
+                factor = bom.compute_factor(self.product, bqty,
+                    self.product.default_uom)
+                balance_plan_consumption = (
+                    product.default_uom.floor(
+                        self.quantity * factor))
 
                 if direction == 'backward':
                     balance_difference = round(qty - balance_plan_consumption,
