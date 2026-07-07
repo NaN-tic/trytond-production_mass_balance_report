@@ -1,3 +1,4 @@
+
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 from datetime import datetime
@@ -10,21 +11,19 @@ from trytond.transaction import Transaction
 from trytond.modules.html_report.dominate_report import DominateReport
 from trytond.modules.html_report.engine import render as html_render
 from trytond.url import http_host
-from trytond.modules.html_report.i18n import _
+from trytond.modules.xgettext import _
+
 from dominate.util import raw
 from dominate.tags import (a, button, div, h1, i, script, strong, table, tbody,
     td, th, thead, tr)
-
 
 __all__ = ['Production', 'PrintProductionMassBalanceStart',
     'PrintProductionMassBalance', 'PrintProductionMassBalanceReport']
 
 _ZERO = 0.0
 
-
 class Production(metaclass=PoolMeta):
     __name__ = 'production'
-
 
     def mass_balance_report_data(self, requested_product, direction, lot=None):
         Uom = Pool().get('product.uom')
@@ -132,7 +131,6 @@ class Production(metaclass=PoolMeta):
 
         return res
 
-
 class PrintProductionMassBalanceStart(ModelView):
     'Print Production Mass Balance Start'
     __name__ = 'production.mass_balance.start'
@@ -172,7 +170,6 @@ class PrintProductionMassBalanceStart(ModelView):
     @staticmethod
     def default_direction():
         return 'backward'
-
 
 class PrintProductionMassBalance(Wizard):
     'Print Production Mass Balance'
@@ -220,7 +217,6 @@ class PrintProductionMassBalance(Wizard):
         if Lot:
             data['lot'] = self.start.lot.id if self.start.lot else None
         return action, data
-
 
 class PrintProductionMassBalanceReport(DominateReport):
     __name__ = 'production.mass_balance.report'
