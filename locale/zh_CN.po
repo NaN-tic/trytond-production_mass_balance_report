@@ -1,0 +1,158 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:production.mass_balance.start,from_date:"
+msgid "From Date"
+msgstr "从日期"
+
+msgctxt "field:production.mass_balance.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:production.mass_balance.start,lot:"
+msgid "Lot"
+msgstr "批次"
+
+msgctxt "field:production.mass_balance.start,product:"
+msgid "Product"
+msgstr "产品"
+
+msgctxt "field:production.mass_balance.start,to_date:"
+msgid "To Date"
+msgstr "到日期"
+
+msgctxt "field:production.mass_balance.start,direction:"
+msgid "Type"
+msgstr "科目"
+
+msgctxt "model:ir.action,name:print_production_mass_balance"
+msgid "Mass Balance"
+msgstr "物料平衡"
+
+msgctxt "model:ir.action,name:report_production_mass_balance"
+msgid "Mass Balance"
+msgstr "物料平衡"
+
+msgctxt "model:ir.ui.menu,name:menu_production_mass_balance"
+msgid "Mass Balance"
+msgstr "物料平衡"
+
+msgctxt "model:production.mass_balance.start,name:"
+msgid "Print Production Mass Balance Start"
+msgstr "打印生产物料平衡：开始"
+
+msgctxt "selection:production.mass_balance.start,direction:"
+msgid "Backward"
+msgstr "向后"
+
+msgctxt "selection:production.mass_balance.start,direction:"
+msgid "Forward"
+msgstr "向前"
+
+msgctxt "wizard_button:production.print_mass_balance,start,end:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard_button:production.print_mass_balance,start,print_:"
+msgid "Print"
+msgstr "打印"
+
+msgctxt "xgettext:x:"
+msgid "Mass Balance"
+msgstr "物料平衡"
+
+msgctxt "xgettext:x:"
+msgid "Expand All"
+msgstr "全部展开"
+
+msgctxt "xgettext:x:"
+msgid "Efficiency Product Type:"
+msgstr "效率产品类型："
+
+msgctxt "xgettext:x:"
+msgid "Backward"
+msgstr "向后"
+
+msgctxt "xgettext:x:"
+msgid "Forward"
+msgstr "向前"
+
+msgctxt "xgettext:x:"
+msgid "Product:"
+msgstr "产品："
+
+msgctxt "xgettext:x:"
+msgid "Lot:"
+msgstr "批次："
+
+msgctxt "xgettext:x:"
+msgid "Quantity:"
+msgstr "数量："
+
+msgctxt "xgettext:x:"
+msgid "quantity produced including all outgoing moves in production"
+msgstr "包含生产中所有出库移动的产出数量"
+
+msgctxt "xgettext:x:"
+msgid "Consumption:"
+msgstr "消耗："
+
+msgctxt "xgettext:x:"
+msgid "amount of product consumed per production"
+msgstr "每次生产消耗的产品数量"
+
+msgctxt "xgettext:x:"
+msgid "Plan Consumption:"
+msgstr "计划消耗："
+
+msgctxt "xgettext:x:"
+msgid ""
+"calculated consumption out of production's quantity field (initial "
+"production quantity)"
+msgstr "根据生产数量字段（初始生产数量）计算的消耗量"
+
+msgctxt "xgettext:x:"
+msgid "From Date:"
+msgstr "从日期:"
+
+msgctxt "xgettext:x:"
+msgid "To Date:"
+msgstr "截止日期："
+
+msgctxt "xgettext:x:"
+msgid "Product"
+msgstr "产品"
+
+msgctxt "xgettext:x:"
+msgid "Quantity"
+msgstr "数量"
+
+msgctxt "xgettext:x:"
+msgid "Consumption"
+msgstr "消耗量"
+
+msgctxt "xgettext:x:"
+msgid "Plan Consumption"
+msgstr "计划消耗"
+
+msgctxt "xgettext:x:"
+msgid "Difference"
+msgstr "差额"
+
+msgctxt "xgettext:x:"
+msgid "% DIFF"
+msgstr "差异 %"
+
+msgctxt "xgettext:x:"
+msgid "Production"
+msgstr "生产"
+
+msgctxt "model:production.mass_balance.start,string:"
+msgid "Production Mass Balance Start"
+msgstr "生产物料平衡：开始"
