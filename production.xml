@@ -50,4 +50,10 @@
             <field name="action" ref="print_production_mass_balance"/>
         </record>
     </data>
+    <data>
+        <record model="ir.action-res.group" id="print_mass_balance_group_production">
+            <field name="action" ref="print_production_mass_balance"/>
+            <field name="group" ref="production.group_production"/>
+        </record>
+    </data>
 </tryton>
