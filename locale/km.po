@@ -1,0 +1,158 @@
+#
+msgid ""
+msgstr ""
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:production.mass_balance.start,from_date:"
+msgid "From Date"
+msgstr "ចាប់ពីកាលបរិច្ឆេទ"
+
+msgctxt "field:production.mass_balance.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:production.mass_balance.start,lot:"
+msgid "Lot"
+msgstr "ឡូត៍"
+
+msgctxt "field:production.mass_balance.start,product:"
+msgid "Product"
+msgstr "ផលិតផល"
+
+msgctxt "field:production.mass_balance.start,to_date:"
+msgid "To Date"
+msgstr "ដល់កាលបរិច្ឆេទ"
+
+msgctxt "field:production.mass_balance.start,direction:"
+msgid "Type"
+msgstr "ប្រភេទ"
+
+msgctxt "model:ir.action,name:print_production_mass_balance"
+msgid "Mass Balance"
+msgstr "តុល្យភាពម៉ាស"
+
+msgctxt "model:ir.action,name:report_production_mass_balance"
+msgid "Mass Balance"
+msgstr "តុល្យភាពម៉ាស"
+
+msgctxt "model:ir.ui.menu,name:menu_production_mass_balance"
+msgid "Mass Balance"
+msgstr "តុល្យភាពម៉ាស"
+
+msgctxt "model:production.mass_balance.start,name:"
+msgid "Print Production Mass Balance Start"
+msgstr "ចាប់ផ្ដើមបោះពុម្ពតុល្យភាពម៉ាសផលិតកម្ម"
+
+msgctxt "selection:production.mass_balance.start,direction:"
+msgid "Backward"
+msgstr "ថយក្រោយ"
+
+msgctxt "selection:production.mass_balance.start,direction:"
+msgid "Forward"
+msgstr "ទៅមុខ"
+
+msgctxt "wizard_button:production.print_mass_balance,start,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:production.print_mass_balance,start,print_:"
+msgid "Print"
+msgstr "បោះពុម្ព"
+
+msgctxt "xgettext:x:"
+msgid "Mass Balance"
+msgstr "តុល្យភាពម៉ាស"
+
+msgctxt "xgettext:x:"
+msgid "Expand All"
+msgstr "ពង្រីកទាំងអស់"
+
+msgctxt "xgettext:x:"
+msgid "Efficiency Product Type:"
+msgstr "ប្រភេទផលិតផលសម្រាប់គណនាប្រសិទ្ធភាព៖"
+
+msgctxt "xgettext:x:"
+msgid "Backward"
+msgstr "ថយក្រោយ"
+
+msgctxt "xgettext:x:"
+msgid "Forward"
+msgstr "ទៅមុខ"
+
+msgctxt "xgettext:x:"
+msgid "Product:"
+msgstr "ផលិតផល៖"
+
+msgctxt "xgettext:x:"
+msgid "Lot:"
+msgstr "ឡូត៍៖"
+
+msgctxt "xgettext:x:"
+msgid "Quantity:"
+msgstr "បរិមាណ៖"
+
+msgctxt "xgettext:x:"
+msgid "quantity produced including all outgoing moves in production"
+msgstr "បរិមាណដែលបានផលិត រួមទាំងចលនាចេញទាំងអស់ក្នុងផលិតកម្ម"
+
+msgctxt "xgettext:x:"
+msgid "Consumption:"
+msgstr "ការប្រើប្រាស់៖"
+
+msgctxt "xgettext:x:"
+msgid "amount of product consumed per production"
+msgstr "បរិមាណផលិតផលដែលបានប្រើក្នុងផលិតកម្មនីមួយៗ"
+
+msgctxt "xgettext:x:"
+msgid "Plan Consumption:"
+msgstr "ការប្រើប្រាស់តាមផែនការ៖"
+
+msgctxt "xgettext:x:"
+msgid ""
+"calculated consumption out of production's quantity field (initial production"
+" quantity)"
+msgstr "ការប្រើប្រាស់ដែលគណនាពីវាលបរិមាណផលិតកម្ម (បរិមាណផលិតកម្មដំបូង)"
+
+msgctxt "xgettext:x:"
+msgid "From Date:"
+msgstr "ចាប់ពីកាលបរិច្ឆេទ៖"
+
+msgctxt "xgettext:x:"
+msgid "To Date:"
+msgstr "ដល់កាលបរិច្ឆេទ៖"
+
+msgctxt "xgettext:x:"
+msgid "Product"
+msgstr "ផលិតផល"
+
+msgctxt "xgettext:x:"
+msgid "Quantity"
+msgstr "បរិមាណ"
+
+msgctxt "xgettext:x:"
+msgid "Consumption"
+msgstr "បរិមាណប្រើប្រាស់"
+
+msgctxt "xgettext:x:"
+msgid "Plan Consumption"
+msgstr "ការប្រើប្រាស់តាមផែនការ"
+
+msgctxt "xgettext:x:"
+msgid "Difference"
+msgstr "ភាពខុសគ្នា"
+
+msgctxt "xgettext:x:"
+msgid "% DIFF"
+msgstr "% DIFF"
+
+msgctxt "xgettext:x:"
+msgid "Production"
+msgstr "ផលិតកម្ម"
+
+msgctxt "model:production.mass_balance.start,string:"
+msgid "Production Mass Balance Start"
+msgstr "ចាប់ផ្ដើមតុល្យភាពម៉ាសផលិតកម្ម"
